@@ -18,26 +18,25 @@ export FRED_API_KEY="your_fred_api_key"  # for macro data, works without it
 
 ## Start the 4 Models
 
-Run each in a separate terminal (or use `tmux`/`screen`):
+Use the lightweight dashboard for minimal overhead (plain text, no Rich UI):
 
-### v1 — ContractDecoder, flat $20 bets (baseline)
+```bash
+# v1 — ContractDecoder, flat $20 bets (baseline)
+python -m radiant_seer.lightweight_dashboard --decoder-version 1
+
+# v2 — ContractDecoderV2 (market-anchored), flat $20 bets
+python -m radiant_seer.lightweight_dashboard --tag v2 --decoder-version 2
+
+# v3 — ContractDecoder + Kelly sizing (selective, sized bets)
+python -m radiant_seer.lightweight_dashboard --tag v3 --decoder-version 3
+
+# v4 — Contrarian (no ML, bets against extreme prices, 60s cycles)
+python -m radiant_seer.lightweight_dashboard --tag v4 --decoder-version 4 --interval 60
+```
+
+For the full Rich UI dashboard (heavier, good for monitoring one model):
 ```bash
 python -m radiant_seer.dashboard --decoder-version 1
-```
-
-### v2 — ContractDecoderV2 (market-anchored), flat $20 bets
-```bash
-python -m radiant_seer.dashboard --tag v2 --decoder-version 2
-```
-
-### v3 — ContractDecoder + Kelly sizing (selective, sized bets)
-```bash
-python -m radiant_seer.dashboard --tag v3 --decoder-version 3
-```
-
-### v4 — Contrarian (no ML, bets against extreme prices, 60s cycles)
-```bash
-python -m radiant_seer.dashboard --tag v4 --decoder-version 4 --interval 60
 ```
 
 ## What Each Model Does
@@ -66,21 +65,18 @@ Shared files:
 ## tmux Quick Start
 
 ```bash
-# Start a new tmux session
 tmux new -s seer
 
-# Split into 4 panes
-tmux split-window -h
-tmux split-window -v
-tmux select-pane -t 0
-tmux split-window -v
+# Start all 4 in separate windows
+tmux send-keys 'source .venv/bin/activate && python -m radiant_seer.lightweight_dashboard --decoder-version 1' Enter
+tmux new-window -t seer
+tmux send-keys 'source .venv/bin/activate && python -m radiant_seer.lightweight_dashboard --tag v2 --decoder-version 2' Enter
+tmux new-window -t seer
+tmux send-keys 'source .venv/bin/activate && python -m radiant_seer.lightweight_dashboard --tag v3 --decoder-version 3' Enter
+tmux new-window -t seer
+tmux send-keys 'source .venv/bin/activate && python -m radiant_seer.lightweight_dashboard --tag v4 --decoder-version 4 --interval 60' Enter
 
-# In each pane, activate venv and run a model:
-# Pane 0: source .venv/bin/activate && python -m radiant_seer.dashboard --decoder-version 1
-# Pane 1: source .venv/bin/activate && python -m radiant_seer.dashboard --tag v2 --decoder-version 2
-# Pane 2: source .venv/bin/activate && python -m radiant_seer.dashboard --tag v3 --decoder-version 3
-# Pane 3: source .venv/bin/activate && python -m radiant_seer.dashboard --tag v4 --decoder-version 4 --interval 60
-
+# Switch windows: Ctrl+B, then 0/1/2/3
 # Detach: Ctrl+B, then D
 # Reattach: tmux attach -t seer
 ```

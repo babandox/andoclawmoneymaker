@@ -1,0 +1,12 @@
+# Tracked contract IDs for Radiant Seer
+# Add contracts here to monitor and trade them.
+
+polymarket: []
+  # - condition_id: "0x..."
+  #   name: "Example Contract"
+  #   resolution_date: "2026-12-31"
+
+kalshi: []
+  # - ticker: "EXAMPLE-26"
+  #   name: "Example Contract"
+  #   resolution_date: "2026-12-31"

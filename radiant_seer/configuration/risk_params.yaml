@@ -1,0 +1,17 @@
+# Risk parameters for position sizing and exposure limits
+
+kelly:
+  fraction: 0.25           # Quarter-Kelly for safety
+  max_position_risk: 0.02  # 2% max portfolio risk per event
+
+alpha:
+  threshold: 0.15          # Minimum |P_mcts - P_market| to trade
+  confidence_threshold: 0.8
+
+exposure:
+  max_total_exposure: 0.10  # 10% total portfolio at risk
+  max_correlated: 0.05      # 5% in correlated positions
+
+ood:
+  mahalanobis_threshold: 3.0  # Standard deviations before OOD flag
+  liquidate_on_ood: true

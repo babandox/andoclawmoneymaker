@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data & models
+data/cache/*
+data/synthetic/*
+data/snapshots/*
+!data/cache/.gitkeep
+!data/synthetic/.gitkeep
+!data/snapshots/.gitkeep
+
+# Model weights — exclude online-learned (regenerated), keep pre-trained base
+data/models/contract_decoder*.pt
+data/models/relevance_scorer*.pt
+data/models/replay_buffer*.pt
+# Pre-trained base weights are tracked (encoder, predictor, ood, outcome_decoder)
+
+# Large binary formats
+*.pth
+*.onnx
+*.ckpt
+
+# Secrets
+.env
+*.key
+credentials*.json
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Notebooks
+notebooks/.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# Logs
+*.log
+logs/
